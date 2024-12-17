@@ -43,6 +43,16 @@ public class Gym {
         this.closeTime = dto.getCloseTime();
     }
 
+    public Gym(String name){
+        this.name = name;
+        this.location = "test location";
+        this.address = "test address";
+        this.phoneNumber = "test phone number";
+        this.isOpen = true;
+        this.openTime = LocalTime.now();
+        this.closeTime = LocalTime.now();
+    }
+
     public void updateGymInformation(
             String name, String location,
             String address, String phoneNumber){

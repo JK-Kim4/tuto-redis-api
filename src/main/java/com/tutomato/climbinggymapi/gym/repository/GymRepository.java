@@ -1,4 +1,4 @@
-package com.tutomato.climbinggymapi.gym.presentation;
+package com.tutomato.climbinggymapi.gym.repository;
 
 import com.tutomato.climbinggymapi.gym.domain.Gym;
 import org.springframework.data.jpa.repository.JpaRepository;
