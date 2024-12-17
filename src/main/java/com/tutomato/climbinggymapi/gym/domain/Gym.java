@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalTime;
 
 @Entity @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+ @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Gym {
 
     @Id @GeneratedValue
