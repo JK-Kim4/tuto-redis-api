@@ -1,6 +1,5 @@
-package com.tutomato.climbinggymapi.redis.token;
+package com.tutomato.climbinggymapi.redis;
 
-import lombok.NoArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 

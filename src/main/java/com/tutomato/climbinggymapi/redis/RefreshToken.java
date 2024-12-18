@@ -1,4 +1,4 @@
-package com.tutomato.climbinggymapi.redis.token;
+package com.tutomato.climbinggymapi.redis;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
