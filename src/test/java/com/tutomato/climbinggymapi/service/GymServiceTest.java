@@ -24,22 +24,24 @@ public class GymServiceTest {
     @Autowired
     GymRepository repository;
 
-    /*@BeforeAll
-    public void insert_bulk(){
-        int gymCount = 5000;
-
-        for(int i = 1; i <= gymCount; i++ ){
-            Gym gym = new Gym("test gym "+i);
-            repository.save(gym);
-        }
-    }*/
-
-//    @AfterAll
-//    void clean_gym(){service.deleteAll();}
-
     @Nested
     @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
     class 체육관_조회_테스트{
+
+        @BeforeEach
+        public void insert_bulk(){
+            int gymCount = 5000;
+
+            for(int i = 1; i <= gymCount; i++ ){
+                Gym gym = new Gym("test gym "+i);
+                repository.save(gym);
+            }
+        }
+
+        @AfterEach
+        public void clear(){
+            repository.deleteAll();
+        }
 
         @Nested
         @DisplayName("체육관 조회 테스트")
@@ -66,20 +68,22 @@ public class GymServiceTest {
             @BeforeEach
             public void insert_bulk(){
                 int gymCount = 5000;
-                Gym firstInsertGym = null;
                 for(int i = 1; i <= gymCount; i++ ){
                     Gym gym = new Gym("test gym "+i);
                     repository.save(gym);
-                    if(i == 1){
-                        firstInsertGym = gym;
-                    }
                 }
 
-                Long lastId = firstInsertGym.getId();
-                for(Long i = lastId; i <= (lastId + 50l); i++){
+                Gym firstGym = repository.findFirstBy();
+                Long firstId = firstGym.getId();
+                for(Long i = firstId; i <= (firstId + 50l); i++){
                     service.findGymByIdWhitCache(i);
                 }
                 service.findAllGymsWithCache();
+            }
+
+            @AfterEach
+            public void clear(){
+                repository.deleteAll();
             }
 
             @Test
