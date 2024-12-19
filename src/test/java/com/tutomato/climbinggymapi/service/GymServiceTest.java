@@ -1,7 +1,7 @@
 package com.tutomato.climbinggymapi.service;
 
 import com.tutomato.climbinggymapi.gym.domain.Gym;
-import com.tutomato.climbinggymapi.gym.domain.dto.GymSaveDto;
+import com.tutomato.climbinggymapi.gym.repository.GymRepository;
 import com.tutomato.climbinggymapi.gym.service.GymService;
 import com.tutomato.climbinggymapi.repository.GymRepositoryTest;
 import org.junit.jupiter.api.*;
@@ -21,17 +21,18 @@ public class GymServiceTest {
     @Autowired
     GymService service;
 
-    @BeforeAll
+    @Autowired
+    GymRepository repository;
+
+    /*@BeforeAll
     public void insert_bulk(){
         int gymCount = 5000;
 
         for(int i = 1; i <= gymCount; i++ ){
-            GymSaveDto dto = GymSaveDto.builder()
-                    .name("gym"+i)
-                    .build();
-            service.save(dto);
+            Gym gym = new Gym("test gym "+i);
+            repository.save(gym);
         }
-    }
+    }*/
 
 //    @AfterAll
 //    void clean_gym(){service.deleteAll();}
@@ -63,12 +64,21 @@ public class GymServiceTest {
         class 캐시_조회_테스트{
 
             @BeforeEach
-            public void set_cache(){
-                Long count = 50l;
-                for(Long i = 1l; i <= count; i++){
-                    service.findGymByIdWhitCache(i);
+            public void insert_bulk(){
+                int gymCount = 5000;
+                Gym firstInsertGym = null;
+                for(int i = 1; i <= gymCount; i++ ){
+                    Gym gym = new Gym("test gym "+i);
+                    repository.save(gym);
+                    if(i == 1){
+                        firstInsertGym = gym;
+                    }
                 }
 
+                Long lastId = firstInsertGym.getId();
+                for(Long i = lastId; i <= (lastId + 50l); i++){
+                    service.findGymByIdWhitCache(i);
+                }
                 service.findAllGymsWithCache();
             }
 

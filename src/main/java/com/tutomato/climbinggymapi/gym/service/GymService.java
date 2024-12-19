@@ -35,9 +35,9 @@ public class GymService {
         return gymRepository.findAll();
     }
 
-    @Cacheable(cacheNames = "gym", key = "#gymId", value = "gym")
+    @Cacheable(key = "#gymId", value = "Gym")
     public Gym findGymByIdWhitCache(Long gymId){
-        return gymRepository.findById(gymId).orElse(null);
+        return gymRepository.findById(gymId).orElseThrow(() -> new RuntimeException("Gym not found"));
     }
 
     @Cacheable(cacheNames = "gyms", key = "'all'")

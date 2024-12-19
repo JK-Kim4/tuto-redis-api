@@ -30,9 +30,9 @@ public class Gym {
 //    @Column(name = "is_open")
 //    private boolean isOpen;
 
-    private LocalTime openTime;
+    //private LocalTime openTime;
 
-    private LocalTime closeTime;
+    //private LocalTime closeTime;
 
     public Gym(GymSaveDto dto){
         this.name = dto.getName();
@@ -41,8 +41,8 @@ public class Gym {
         this.phoneNumber = dto.getPhoneNumber();
         //this.isOpen = dto.isOpen();
         //this.isOpen = true;
-        this.openTime = dto.getOpenTime();
-        this.closeTime = dto.getCloseTime();
+        //this.openTime = dto.getOpenTime();
+        //this.closeTime = dto.getCloseTime();
     }
 
     public Gym(String name){
@@ -51,8 +51,8 @@ public class Gym {
         this.address = "test address";
         this.phoneNumber = "test phone number";
         //this.isOpen = true;
-        this.openTime = LocalTime.now();
-        this.closeTime = LocalTime.now();
+        //this.openTime = LocalTime.now();
+        //this.closeTime = LocalTime.now();
     }
 
     public void updateGymInformation(
@@ -71,7 +71,7 @@ public class Gym {
 
     public void updateOperationTime(
             LocalTime openTime, LocalTime closeTime){
-        this.openTime = openTime;
-        this.closeTime = closeTime;
+        //this.openTime = openTime;
+        //this.closeTime = closeTime;
     }
 }

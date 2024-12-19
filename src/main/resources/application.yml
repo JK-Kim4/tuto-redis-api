@@ -25,7 +25,7 @@ spring:
 server:
   servlet:
     encoding:
-      charset: utf-8
+      charset: UTF-8
       force: true
 
 logging:
