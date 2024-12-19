@@ -1,12 +1,13 @@
 package com.tutomato.climbinggymapi.redis;
 
 import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class RedisServiceTest {
@@ -25,6 +26,6 @@ public class RedisServiceTest {
 
         String redisValue = redisTemplate.opsForValue().get(key);
 
-        Assertions.assertEquals(value, redisValue);
+        assertEquals(value, redisValue);
     }
 }

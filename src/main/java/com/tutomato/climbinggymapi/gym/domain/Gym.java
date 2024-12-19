@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalTime;
 
 @Entity @Getter
- @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Gym {
 
     @Id @GeneratedValue
@@ -27,7 +27,8 @@ public class Gym {
 
     private String phoneNumber;
 
-    private boolean isOpen;
+//    @Column(name = "is_open")
+//    private boolean isOpen;
 
     private LocalTime openTime;
 
@@ -38,7 +39,8 @@ public class Gym {
         this.location = dto.getLocation();
         this.address = dto.getAddress();
         this.phoneNumber = dto.getPhoneNumber();
-        this.isOpen = dto.isOpen();
+        //this.isOpen = dto.isOpen();
+        //this.isOpen = true;
         this.openTime = dto.getOpenTime();
         this.closeTime = dto.getCloseTime();
     }
@@ -48,7 +50,7 @@ public class Gym {
         this.location = "test location";
         this.address = "test address";
         this.phoneNumber = "test phone number";
-        this.isOpen = true;
+        //this.isOpen = true;
         this.openTime = LocalTime.now();
         this.closeTime = LocalTime.now();
     }
@@ -64,7 +66,7 @@ public class Gym {
 
     public void updateOpenStatus(
             boolean isOpen){
-        this.isOpen = isOpen;
+       // this.isOpen = isOpen;
     }
 
     public void updateOperationTime(

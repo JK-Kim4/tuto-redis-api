@@ -6,13 +6,11 @@ import com.tutomato.climbinggymapi.gym.domain.dto.GymSaveDto;
 import com.tutomato.climbinggymapi.gym.repository.GymRepository;
 import com.tutomato.climbinggymapi.member.domain.Member;
 import com.tutomato.climbinggymapi.member.repository.MemberRepository;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalTime;
@@ -28,17 +26,16 @@ public class GymRepositoryTest {
     @Autowired
     MemberRepository memberRepository;
 
-    @Test
-    public void data_clean(){
+    @AfterEach
+    public void after(){
         gymRepository.deleteAll();
         memberRepository.deleteAll();
     }
 
-    @Test
-    @Rollback(value = false)
+    @BeforeEach
     public void bulk_data_insert(){
         //join 성능 비교를 위한 dummy data insert
-        int gymCount = 15000;
+        int gymCount = 5000;
 
         for(int i = 1; i <= gymCount; i++ ){
             Gym gym = new Gym("test gym "+i);
@@ -49,6 +46,7 @@ public class GymRepositoryTest {
             }
         }
     }
+
 
     @Test
     public void 체육관_전체조회_성능테스트(){
