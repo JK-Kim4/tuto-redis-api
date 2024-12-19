@@ -1,6 +1,7 @@
 package com.tutomato.climbinggymapi.gym.service;
 
 import com.tutomato.climbinggymapi.gym.domain.Gym;
+import com.tutomato.climbinggymapi.gym.domain.Gyms;
 import com.tutomato.climbinggymapi.gym.domain.dto.GymSaveDto;
 import com.tutomato.climbinggymapi.gym.repository.GymRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,8 +42,9 @@ public class GymService {
     }
 
     @Cacheable(cacheNames = "gyms", key = "'all'")
-    public List<Gym> findAllGymsWithCache(){
-        return gymRepository.findAll();
+    public Gyms findAllGymsWithCache(){
+        List<Gym> gyms = gymRepository.findAll();
+        return new Gyms(gyms);
     }
 
 }

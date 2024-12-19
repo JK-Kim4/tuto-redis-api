@@ -1,6 +1,7 @@
 package com.tutomato.climbinggymapi.service;
 
 import com.tutomato.climbinggymapi.gym.domain.Gym;
+import com.tutomato.climbinggymapi.gym.domain.Gyms;
 import com.tutomato.climbinggymapi.gym.repository.GymRepository;
 import com.tutomato.climbinggymapi.gym.service.GymService;
 import com.tutomato.climbinggymapi.repository.GymRepositoryTest;
@@ -28,24 +29,24 @@ public class GymServiceTest {
     @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
     class 체육관_조회_테스트{
 
-        @BeforeEach
-        public void insert_bulk(){
-            int gymCount = 5000;
-
-            for(int i = 1; i <= gymCount; i++ ){
-                Gym gym = new Gym("test gym "+i);
-                repository.save(gym);
-            }
-        }
-
-        @AfterEach
-        public void clear(){
-            repository.deleteAll();
-        }
-
         @Nested
         @DisplayName("체육관 조회 테스트")
         class 일반_조회_테스트{
+
+            @BeforeEach
+            public void insert_bulk(){
+                int gymCount = 5000;
+
+                for(int i = 1; i <= gymCount; i++ ){
+                    Gym gym = new Gym("test gym "+i);
+                    repository.save(gym);
+                }
+            }
+
+            @AfterEach
+            public void clear(){
+                repository.deleteAll();
+            }
 
             @Test
             @DisplayName("등록되어있는 체육관의 목록을 조회하고 실행 시간을 기록")
@@ -91,12 +92,14 @@ public class GymServiceTest {
             public void 체육관_전체조회_캐싱(){
                 long before = System.currentTimeMillis();
 
-                List<Gym> gyms = service.findAllGymsWithCache();
-                log.debug("전체 데이터 크기: {}", gyms.size());
+                Gyms gyms = service.findAllGymsWithCache();
+                log.debug("total size: {}", gyms.getGyms().size());
 
                 long after = System.currentTimeMillis();
                 long diff = after - before;
                 log.debug("전체 조회 캐시적용 실행 시간: {}", diff);
+
+                Assertions.assertEquals(gyms.getGyms().size(), 5000);
             }
 
         }
