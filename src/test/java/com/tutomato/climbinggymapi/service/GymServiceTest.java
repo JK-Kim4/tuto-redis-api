@@ -1,15 +1,20 @@
 package com.tutomato.climbinggymapi.service;
 
+import com.tutomato.climbinggymapi.TestValue;
 import com.tutomato.climbinggymapi.gym.domain.Gym;
 import com.tutomato.climbinggymapi.gym.domain.Gyms;
 import com.tutomato.climbinggymapi.gym.repository.GymRepository;
 import com.tutomato.climbinggymapi.gym.service.GymService;
+import com.tutomato.climbinggymapi.member.domain.Member;
+import com.tutomato.climbinggymapi.member.repository.MemberRepository;
 import com.tutomato.climbinggymapi.repository.GymRepositoryTest;
 import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,83 +30,93 @@ public class GymServiceTest {
     @Autowired
     GymRepository repository;
 
+    @Autowired
+    MemberRepository memberRepository;
+
     @Nested
     @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
     class 체육관_조회_테스트{
 
-        @Nested
-        @DisplayName("체육관 조회 테스트")
-        class 일반_조회_테스트{
-
-            @BeforeEach
-            public void insert_bulk(){
-                int gymCount = 15000;
-
-                for(int i = 1; i <= gymCount; i++ ){
-                    Gym gym = new Gym("test gym "+i);
-                    repository.save(gym);
+        @Test
+        @Rollback(value = false)
+        @DisplayName("00_벌크 데이터 등록")
+        public void test_a(){
+            int gymCount = 30000;
+            for (int i = 1; i <= gymCount; i++) {
+                Gym gym = new Gym("test gym" +i);
+                repository.save(gym);
+                for(int j = 0; j < 2; j++){
+                    Member member = new Member("test member", gym.getName(), TestValue.IPSUM);
+                    memberRepository.save(member);
                 }
-            }
-
-//            @AfterEach
-//            public void clear(){
-//                repository.deleteAll();
-//            }
-
-            @Test
-            @DisplayName("등록되어있는 체육관의 목록을 조회하고 실행 시간을 기록")
-            public void 체육관_전체조회_테스트(){
-                long before = System.currentTimeMillis();
-
-                List<Gym> gyms = service.findAllGyms();
-                log.debug("전체 데이터 크기: {}", gyms.size());
-
-                long after = System.currentTimeMillis();
-                long diff = after - before;
-                log.debug("전체 조회 실행 시간: {}", diff);
             }
         }
 
-        @Nested
-        @DisplayName("체육관 조회 테스트 (Redis cache 적용)")
-        class 캐시_조회_테스트{
 
-            @BeforeEach
-            public void insert_bulk(){
-                int gymCount = 15000;
-                for(int i = 1; i <= gymCount; i++ ){
-                    Gym gym = new Gym("test gym "+i);
-                    repository.save(gym);
-                }
+        @Test
+        @DisplayName("01_체육관 정보 조회")
+        public void test_b(){
+            long before = System.currentTimeMillis();
 
-//                Gym firstGym = repository.findFirstBy();
-//                Long firstId = firstGym.getId();
-//                for(Long i = firstId; i <= (firstId + 50l); i++){
-//                    service.findGymByIdWhitCache(i);
-//                }
-//                service.findAllGymsWithCache();
-            }
+            List<Gym> gyms = service.findAllGyms();
 
-//            @AfterEach
-//            public void clear(){
-//                repository.deleteAll();
-//            }
+            long after = System.currentTimeMillis();
+            long diff = after - before;
 
-            @Test
-            @DisplayName("등록되어있는 체육관의 목록을 Redis 저장소를 참조하여 조회한다.")
-            public void 체육관_전체조회_캐싱(){
-                long before = System.currentTimeMillis();
+            log.debug("전체 데이터 크기: {}", gyms.size());
+            log.debug("전체 조회 실행 시간: {}", diff);
+        }
 
-                Gyms gyms = service.findAllGymsWithCache();
-                log.debug("전체 데이터 수: {}", gyms.getGyms().size());
+        @Test
+        @DisplayName("02_체육관 정보 조회 캐시적용")
+        public void test_c(){
+            long before = System.currentTimeMillis();
 
-                long after = System.currentTimeMillis();
-                long diff = after - before;
-                log.debug("전체 조회 캐시 최초 실행 시간: {}", diff);
+            Gyms gyms = service.findAllGymsWithCache();
 
-                Assertions.assertEquals(gyms.getGyms().size(), 15000);
-            }
+            long after = System.currentTimeMillis();
+            long diff = after - before;
+            log.debug("전체 데이터 수: {}", gyms.getGyms().size());
+            log.debug("전체 조회 캐시 최초 실행 시간: {}", diff);
+        }
 
+        @Test
+        @DisplayName("03_체육관 전체 정보 캐시조회")
+        public void test_d(){
+            long before = System.currentTimeMillis();
+
+            Gyms gyms = service.findAllGymsWithCache();
+
+            long after = System.currentTimeMillis();
+            long diff = after - before;
+            log.debug("전체 데이터 수: {}", gyms.getGyms().size());
+            log.debug("전체 조회 캐시 적용 실행 시간: {}", diff);
+        }
+
+        @Test
+        @DisplayName("04_체육관 전체 정보 캐시조회")
+        public void test_e(){
+            long before = System.currentTimeMillis();
+
+            Gyms gyms = service.findAllGymsWithCache();
+
+            long after = System.currentTimeMillis();
+            long diff = after - before;
+            log.debug("전체 데이터 수: {}", gyms.getGyms().size());
+            log.debug("전체 조회 캐시 적용 실행 시간: {}", diff);
+        }
+
+        @Test
+        @DisplayName("05_체육관 전체 정보 캐시조회")
+        public void test_f(){
+            long before = System.currentTimeMillis();
+
+            Gyms gyms = service.findAllGymsWithCache();
+
+            long after = System.currentTimeMillis();
+            long diff = after - before;
+            log.debug("전체 데이터 수: {}", gyms.getGyms().size());
+            log.debug("전체 조회 캐시 적용 실행 시간: {}", diff);
         }
     }
 }

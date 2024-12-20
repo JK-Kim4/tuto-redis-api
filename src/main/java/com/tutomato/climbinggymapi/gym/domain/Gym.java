@@ -41,8 +41,7 @@ public class Gym implements Serializable {
         this.location = dto.getLocation();
         this.address = dto.getAddress();
         this.phoneNumber = dto.getPhoneNumber();
-        //this.isOpen = dto.isOpen();
-        this.isOpen = true;
+        this.isOpen = dto.isOpen();
         this.openTime = dto.getOpenTime();
         this.closeTime = dto.getCloseTime();
     }
