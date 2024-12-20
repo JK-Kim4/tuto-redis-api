@@ -35,7 +35,7 @@ public class GymServiceTest {
 
             @BeforeEach
             public void insert_bulk(){
-                int gymCount = 5000;
+                int gymCount = 15000;
 
                 for(int i = 1; i <= gymCount; i++ ){
                     Gym gym = new Gym("test gym "+i);
@@ -43,10 +43,10 @@ public class GymServiceTest {
                 }
             }
 
-            @AfterEach
-            public void clear(){
-                repository.deleteAll();
-            }
+//            @AfterEach
+//            public void clear(){
+//                repository.deleteAll();
+//            }
 
             @Test
             @DisplayName("등록되어있는 체육관의 목록을 조회하고 실행 시간을 기록")
@@ -68,24 +68,24 @@ public class GymServiceTest {
 
             @BeforeEach
             public void insert_bulk(){
-                int gymCount = 5000;
+                int gymCount = 15000;
                 for(int i = 1; i <= gymCount; i++ ){
                     Gym gym = new Gym("test gym "+i);
                     repository.save(gym);
                 }
 
-                Gym firstGym = repository.findFirstBy();
-                Long firstId = firstGym.getId();
-                for(Long i = firstId; i <= (firstId + 50l); i++){
-                    service.findGymByIdWhitCache(i);
-                }
-                service.findAllGymsWithCache();
+//                Gym firstGym = repository.findFirstBy();
+//                Long firstId = firstGym.getId();
+//                for(Long i = firstId; i <= (firstId + 50l); i++){
+//                    service.findGymByIdWhitCache(i);
+//                }
+//                service.findAllGymsWithCache();
             }
 
-            @AfterEach
-            public void clear(){
-                repository.deleteAll();
-            }
+//            @AfterEach
+//            public void clear(){
+//                repository.deleteAll();
+//            }
 
             @Test
             @DisplayName("등록되어있는 체육관의 목록을 Redis 저장소를 참조하여 조회한다.")
@@ -93,13 +93,13 @@ public class GymServiceTest {
                 long before = System.currentTimeMillis();
 
                 Gyms gyms = service.findAllGymsWithCache();
-                log.debug("total size: {}", gyms.getGyms().size());
+                log.debug("전체 데이터 수: {}", gyms.getGyms().size());
 
                 long after = System.currentTimeMillis();
                 long diff = after - before;
-                log.debug("전체 조회 캐시적용 실행 시간: {}", diff);
+                log.debug("전체 조회 캐시 최초 실행 시간: {}", diff);
 
-                Assertions.assertEquals(gyms.getGyms().size(), 5000);
+                Assertions.assertEquals(gyms.getGyms().size(), 15000);
             }
 
         }

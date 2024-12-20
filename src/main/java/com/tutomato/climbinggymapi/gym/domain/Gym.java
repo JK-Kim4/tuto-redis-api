@@ -1,5 +1,6 @@
 package com.tutomato.climbinggymapi.gym.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tutomato.climbinggymapi.gym.domain.dto.GymSaveDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,11 +10,13 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
 @Entity @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Gym {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Gym implements Serializable {
 
     @Id @GeneratedValue
     @Column(name = "gym_id")
@@ -27,12 +30,11 @@ public class Gym {
 
     private String phoneNumber;
 
-//    @Column(name = "is_open")
-//    private boolean isOpen;
+    private Boolean isOpen;
 
-    //private LocalTime openTime;
+    private LocalTime openTime;
 
-    //private LocalTime closeTime;
+    private LocalTime closeTime;
 
     public Gym(GymSaveDto dto){
         this.name = dto.getName();
@@ -40,9 +42,9 @@ public class Gym {
         this.address = dto.getAddress();
         this.phoneNumber = dto.getPhoneNumber();
         //this.isOpen = dto.isOpen();
-        //this.isOpen = true;
-        //this.openTime = dto.getOpenTime();
-        //this.closeTime = dto.getCloseTime();
+        this.isOpen = true;
+        this.openTime = dto.getOpenTime();
+        this.closeTime = dto.getCloseTime();
     }
 
     public Gym(String name){
@@ -50,9 +52,9 @@ public class Gym {
         this.location = "test location";
         this.address = "test address";
         this.phoneNumber = "test phone number";
-        //this.isOpen = true;
-        //this.openTime = LocalTime.now();
-        //this.closeTime = LocalTime.now();
+        this.isOpen = true;
+        this.openTime = LocalTime.now();
+        this.closeTime = LocalTime.now();
     }
 
     public void updateGymInformation(
@@ -65,8 +67,8 @@ public class Gym {
     }
 
     public void updateOpenStatus(
-            boolean isOpen){
-       // this.isOpen = isOpen;
+            boolean open){
+        this.isOpen = open;
     }
 
     public void updateOperationTime(
