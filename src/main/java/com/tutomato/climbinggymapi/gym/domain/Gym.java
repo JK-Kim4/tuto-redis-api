@@ -46,6 +46,7 @@ public class Gym implements Serializable {
         this.closeTime = dto.getCloseTime();
     }
 
+    /*constructor for test*/
     public Gym(String name){
         this.name = name;
         this.location = "test location";
@@ -63,6 +64,13 @@ public class Gym implements Serializable {
         this.location = location;
         this.address = address;
         this.phoneNumber = phoneNumber;
+    }
+
+    public void updateGymInformation(GymSaveDto dto){
+        this.name = dto.getName();
+        this.location = dto.getLocation();
+        this.address = dto.getAddress();
+        this.phoneNumber = dto.getPhoneNumber();
     }
 
     public void updateOpenStatus(

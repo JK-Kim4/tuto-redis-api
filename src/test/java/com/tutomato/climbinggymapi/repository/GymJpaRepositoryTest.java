@@ -3,7 +3,7 @@ package com.tutomato.climbinggymapi.repository;
 import com.tutomato.climbinggymapi.TestValue;
 import com.tutomato.climbinggymapi.gym.domain.Gym;
 import com.tutomato.climbinggymapi.gym.domain.dto.GymSaveDto;
-import com.tutomato.climbinggymapi.gym.repository.GymRepository;
+import com.tutomato.climbinggymapi.gym.repository.GymJpaRepository;
 import com.tutomato.climbinggymapi.member.domain.Member;
 import com.tutomato.climbinggymapi.member.repository.MemberRepository;
 import org.junit.jupiter.api.*;
@@ -17,18 +17,18 @@ import java.time.LocalTime;
 import java.util.List;
 
 @SpringBootTest
-public class GymRepositoryTest {
+public class GymJpaRepositoryTest {
 
-    private static final Logger log = LoggerFactory.getLogger(GymRepositoryTest.class);
+    private static final Logger log = LoggerFactory.getLogger(GymJpaRepositoryTest.class);
     @Autowired
-    GymRepository gymRepository;
+    GymJpaRepository gymJpaRepository;
 
     @Autowired
     MemberRepository memberRepository;
 
     @AfterEach
     public void after(){
-        gymRepository.deleteAll();
+        gymJpaRepository.deleteAll();
         memberRepository.deleteAll();
     }
 
@@ -39,7 +39,7 @@ public class GymRepositoryTest {
 
         for(int i = 1; i <= gymCount; i++ ){
             Gym gym = new Gym("test gym "+i);
-            gymRepository.save(gym);
+            gymJpaRepository.save(gym);
             for(int j = 0; j < 2; j++){
                 Member member = new Member("member "+j, gym.getName(), TestValue.IPSUM);
                 memberRepository.save(member);
@@ -52,7 +52,7 @@ public class GymRepositoryTest {
     public void 체육관_전체조회_성능테스트(){
         long before = System.currentTimeMillis();
 
-        List<Gym> all = gymRepository.findAll();
+        List<Gym> all = gymJpaRepository.findAll();
         System.out.println("gym count = " + all.size());
 
         long after = System.currentTimeMillis();
@@ -87,11 +87,11 @@ public class GymRepositoryTest {
         Gym gym2 = new Gym(gymDto2);
 
 
-        gymRepository.save(gym1);
-        gymRepository.save(gym2);
+        gymJpaRepository.save(gym1);
+        gymJpaRepository.save(gym2);
 
-        Gym gym3 = gymRepository.findById(gym1.getId()).get();
-        Gym gym4 = gymRepository.findById(gym2.getId()).get();
+        Gym gym3 = gymJpaRepository.findById(gym1.getId()).get();
+        Gym gym4 = gymJpaRepository.findById(gym2.getId()).get();
 
         Assertions.assertEquals(gym1.getId(), gym3.getId());
         Assertions.assertEquals(gym2.getId(), gym4.getId());
