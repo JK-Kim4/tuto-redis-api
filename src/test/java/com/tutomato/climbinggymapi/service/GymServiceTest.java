@@ -9,7 +9,6 @@ import com.tutomato.climbinggymapi.gym.service.GymService;
 import com.tutomato.climbinggymapi.member.domain.Member;
 import com.tutomato.climbinggymapi.member.repository.MemberRepository;
 import com.tutomato.climbinggymapi.repository.GymJpaRepositoryTest;
-import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +44,7 @@ public class GymServiceTest {
         public void test_a(){
             int gymCount = 30000;
             for (int i = 1; i <= gymCount; i++) {
-                Gym gym = new Gym("test gym" +i);
+                Gym gym = new Gym("test gym" + i);
                 repository.save(gym);
                 for(int j = 0; j < 2; j++){
                     Member member = new Member("test member", gym.getName(), TestValue.IPSUM);
