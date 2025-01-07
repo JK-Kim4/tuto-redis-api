@@ -64,8 +64,8 @@ public class GymServiceTest {
             long after = System.currentTimeMillis();
             long diff = after - before;
 
-            log.debug("전체 데이터 크기: {}", gyms.size());
-            log.debug("전체 조회 실행 시간: {}", diff);
+            log.debug("[01_체육관 정보 조회] 전체 데이터 크기: {}", gyms.size());
+            log.debug("[01_체육관 정보 조회] 전체 조회 실행 시간: {}", diff);
         }
 
         @Test
@@ -77,8 +77,8 @@ public class GymServiceTest {
 
             long after = System.currentTimeMillis();
             long diff = after - before;
-            log.debug("전체 데이터 수: {}", gyms.getGyms().size());
-            log.debug("전체 조회 캐시 최초 실행 시간: {}", diff);
+            log.debug("[02_체육관 정보 조회 캐시적용] 전체 데이터 수: {}", gyms.getGyms().size());
+            log.debug("[02_체육관 정보 조회 캐시적용] 전체 조회 캐시 최초 실행 시간: {}", diff);
         }
 
         @Test
@@ -90,8 +90,8 @@ public class GymServiceTest {
 
             long after = System.currentTimeMillis();
             long diff = after - before;
-            log.debug("전체 데이터 수: {}", gyms.getGyms().size());
-            log.debug("전체 조회 캐시 적용 실행 시간: {}", diff);
+            log.debug("[03_체육관 전체 정보 캐시조회] 전체 데이터 수: {}", gyms.getGyms().size());
+            log.debug("[03_체육관 전체 정보 캐시조회] 전체 조회 캐시 적용 실행 시간: {}", diff);
         }
 
         @Test
@@ -103,8 +103,8 @@ public class GymServiceTest {
 
             long after = System.currentTimeMillis();
             long diff = after - before;
-            log.debug("전체 데이터 수: {}", gyms.getGyms().size());
-            log.debug("전체 조회 캐시 적용 실행 시간: {}", diff);
+            log.debug("[04_체육관 전체 정보 캐시조회] 전체 데이터 수: {}", gyms.getGyms().size());
+            log.debug("[04_체육관 전체 정보 캐시조회] 전체 조회 캐시 적용 실행 시간: {}", diff);
         }
     }
 
