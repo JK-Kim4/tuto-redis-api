@@ -31,3 +31,7 @@ server:
 logging:
   level:
     root: debug
+
+
+jwt:
+  secret: 5lb5byBl7uOqEVO3qpqqgrNv1PJJ3Bnd

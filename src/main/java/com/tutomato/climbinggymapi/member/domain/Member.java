@@ -5,11 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-
-import java.time.LocalTime;
 
 @Entity @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,32 +17,42 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    private String realName;
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "password", nullable = false, unique = true)
+    private String password;
+
+    private String nickname;
 
     private String gymName;
 
     @Column(length = 512)
     private String desc;
 
-    private String testString1;
+    private String refreshToken;
 
-    private String testString2;
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
 
-    private String testString3;
+//    @OneToMany(mappedBy = "member",cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+//    private Set<MemberRole> memberRoles = new HashSet<>();
 
-    private LocalTime testTime1;
-
-    private LocalTime testTime2;
-
-    public Member(String realName, String gymName, String desc) {
-        this.realName = realName;
+    //for test
+    public Member(String nickname, String gymName, String desc) {
+        this.nickname = nickname;
         this.gymName = gymName;
         this.desc = desc;
-        this.testString1 = "test1";
-        this.testString2 = "test2";
-        this.testString3 = "test3";
-        this.testTime1 = LocalTime.now();
-        this.testTime2 = LocalTime.now();
+    }
+
+    @Builder
+    public Member(String email, String password, String nickname, String gymName, String desc) {
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.gymName = gymName;
+        this.desc = desc;
     }
 
 }
