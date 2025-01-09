@@ -1,6 +1,5 @@
 package com.tutomato.climbinggymapi.member.domain;
 
-import com.tutomato.climbinggymapi.member.domain.dto.Role;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

@@ -5,7 +5,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -18,13 +17,7 @@ public class JwtProvider {
 
     private final Logger logger = LoggerFactory.getLogger(JwtProvider.class);
 
-    @Value("${jwt.secret}")
-    public void setSecret(String secret) {
-        JwtProvider.secretKey = secret;
-    }
-    private static String secretKey;
-
-    private static final byte[] secret = secretKey.getBytes();
+    private static final byte[] secret = "5lb5byBl7uOqEVO3qpqqgrNv1PJJ3Bnd".getBytes();
     private final Key key = Keys.hmacShaKeyFor(secret);
 
 

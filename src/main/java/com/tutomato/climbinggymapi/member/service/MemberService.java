@@ -3,7 +3,10 @@ package com.tutomato.climbinggymapi.member.service;
 import com.tutomato.climbinggymapi.member.api.dto.MemberResponseDto;
 import com.tutomato.climbinggymapi.member.api.dto.MemberSaveDto;
 import com.tutomato.climbinggymapi.member.domain.MemberRole;
-import com.tutomato.climbinggymapi.member.domain.dto.Role;
+import com.tutomato.climbinggymapi.member.domain.Role;
+
+import java.util.Set;
+
 
 public interface MemberService {
 
@@ -30,5 +33,5 @@ public interface MemberService {
 
     MemberRole addMemberRole(String email, Role role);
 
-
+    Set<Role> getMemberRolesByEmail(String email);
 }

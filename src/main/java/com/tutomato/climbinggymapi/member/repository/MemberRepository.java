@@ -1,6 +1,7 @@
 package com.tutomato.climbinggymapi.member.repository;
 
 import com.tutomato.climbinggymapi.member.domain.Member;
+import com.tutomato.climbinggymapi.member.domain.MemberRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -13,4 +14,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findAllMemberWithGym();
 
     Optional<Member> findByEmail(String email);
+
+    List<MemberRole> findMemberRolesByEmail(String email);
 }
