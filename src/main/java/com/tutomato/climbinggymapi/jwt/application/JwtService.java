@@ -75,6 +75,8 @@ public class JwtService {
     /**
      * 새로운 Refresh Token을 생성하여
      * 응답 Header에 등록하고 내용을 저장합니다.
+     *
+     * Token의 Identifier는 member의 email을 사용합니다.
      * */
     public String generateRefreshToken(HttpServletResponse response, Member requestMember) {
 
@@ -83,7 +85,7 @@ public class JwtService {
         response.addHeader(JwtRule.JWT_ISSUE_HEADER.getValue(), cookie.toString());
 
         //TODO insert token repository
-        tokenRepository.save(new Token(requestMember.getIdentifier(), refreshToken));
+        tokenRepository.save(new Token(requestMember.getEmail(), refreshToken));
 
         return refreshToken;
 
@@ -113,10 +115,10 @@ public class JwtService {
     /**
      * refresh token 유효성, 일치여부 검증
      * */
-    public boolean validateRefreshToken(String refreshToken, String identifier) {
+    public boolean validateRefreshToken(String refreshToken, String email) {
         boolean isRefreshValid = jwtUtil.getTokenStatus(refreshToken, REFRESH_SECRET_KEY).equals(TokenStatus.AUTHENTICATED);
 
-        Token storedToken = tokenRepository.findByIdentifier(identifier);
+        Token storedToken = tokenRepository.findByIdentifier(email);
         boolean isTokenMatched = storedToken.getRefreshToken().equals(refreshToken);
 
         return isRefreshValid && isTokenMatched;
@@ -166,7 +168,7 @@ public class JwtService {
 
 
     public void logout(Member requestMember, HttpServletResponse response) {
-        tokenRepository.deleteById(requestMember.getIdentifier());
+        tokenRepository.deleteById(requestMember.getEmail());
 
         Cookie accessCookie = jwtUtil.resetToken(JwtRule.ACCESS_PREFIX);
         Cookie refreshCookie = jwtUtil.resetToken(JwtRule.REFRESH_PREFIX);

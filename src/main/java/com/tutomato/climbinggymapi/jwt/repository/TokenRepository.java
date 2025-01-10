@@ -18,4 +18,8 @@ public class TokenRepository {
         //identifier 일치하는 refresh 토큰 조회
         return null;
     }
+
+    public void deleteById(String email) {
+
+    }
 }

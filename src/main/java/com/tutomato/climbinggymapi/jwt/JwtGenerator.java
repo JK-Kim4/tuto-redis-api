@@ -27,7 +27,7 @@ public class JwtGenerator {
         return Jwts.builder()
                 .setHeader(this.createHeader())
                 .setClaims(this.createClaims(member))
-                .setSubject(String.valueOf(member.getId()))
+                .setSubject(String.valueOf(member.getEmail()))
                 .setExpiration(new Date(now + ACCESS_EXPIRATION))
                 .signWith(ACCESS_SECRET, SignatureAlgorithm.HS256)
                 .compact();
@@ -43,7 +43,7 @@ public class JwtGenerator {
 
         return Jwts.builder()
                 .setHeader(createHeader())
-                .setSubject(member.getIdentifier())
+                .setSubject(member.getEmail())
                 .setExpiration(new Date(now + REFRESH_EXPIRATION))
                 .signWith(REFRESH_SECRET, SignatureAlgorithm.HS256)
                 .compact();
@@ -59,7 +59,7 @@ public class JwtGenerator {
 
     private Map<String, Object> createClaims(Member member){
         Map<String, Object> claims = new HashMap<>();
-        claims.put("Identifier", member.getIdentifier());
+        claims.put("Identifier", member.getEmail());
         claims.put("Role", member.getRole());
         return claims;
 
