@@ -1,6 +1,6 @@
 spring:
   application:
-    name: board-for-workers
+    name: climbing-gym
   datasource:
     driver-class-name: org.h2.Driver
     hikari:
@@ -21,6 +21,8 @@ spring:
       port: 6379
   cache:
     type: redis
+  main:
+    allow-bean-definition-overriding: true
 
 server:
   servlet:
@@ -31,7 +33,6 @@ server:
 logging:
   level:
     root: debug
-
 
 jwt:
   secret: 5lb5byBl7uOqEVO3qpqqgrNv1PJJ3Bnd
