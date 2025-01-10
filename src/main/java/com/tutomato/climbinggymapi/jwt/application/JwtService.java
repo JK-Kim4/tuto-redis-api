@@ -151,8 +151,29 @@ public class JwtService {
                 .build();
     }
 
+    public String getIdentifierFromRefresh(String refreshToken) {
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(REFRESH_SECRET_KEY)
+                    .build()
+                    .parseClaimsJws(refreshToken)
+                    .getBody()
+                    .getSubject();
+        } catch (Exception e) {
+            throw new InvalidTokenException("");
+        }
+    }
 
 
+    public void logout(Member requestMember, HttpServletResponse response) {
+        tokenRepository.deleteById(requestMember.getIdentifier());
+
+        Cookie accessCookie = jwtUtil.resetToken(JwtRule.ACCESS_PREFIX);
+        Cookie refreshCookie = jwtUtil.resetToken(JwtRule.REFRESH_PREFIX);
+
+        response.addCookie(accessCookie);
+        response.addCookie(refreshCookie);
+    }
 
 
 }

@@ -3,6 +3,7 @@ package com.tutomato.climbinggymapi.jwt.filter;
 import com.tutomato.climbinggymapi.jwt.application.JwtService;
 import com.tutomato.climbinggymapi.jwt.domain.JwtRule;
 import com.tutomato.climbinggymapi.member.application.CustomMemberDetailService;
+import com.tutomato.climbinggymapi.member.application.MemberService;
 import com.tutomato.climbinggymapi.member.domain.Member;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -19,8 +20,10 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    private final static String[] PERMITTED_URI = {"/"};
+
     private final JwtService jwtService;
-    private final CustomMemberDetailService memberDetailService;
+    private final MemberService memberService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -51,7 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        jwtService.logout(user, response);
+        jwtService.logout(member, response);
     }
 
     private boolean isPermittedURI(String requestURI) {
@@ -62,9 +65,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 });
     }
 
-    private User findUserByRefreshToken(String refreshToken) {
+    private Member findUserByRefreshToken(String refreshToken) {
         String identifier = jwtService.getIdentifierFromRefresh(refreshToken);
-        return userService.findUserByIdentifier(identifier);
+        return memberService.findUserByIdentifier(identifier);
     }
 
     private void setAuthenticationToContext(String accessToken) {
