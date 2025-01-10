@@ -31,3 +31,11 @@ server:
 logging:
   level:
     root: debug
+
+
+jwt:
+  test:
+    access-secret: accesssecretaccesssecretaccesssecretaccesssecretaccesssecret
+    refresh-secret: refreshsecretrefreshsecretrefreshsecretrefreshsecretrefreshsecret
+    access-expiration: 600000 # 10min
+    refresh-expiration: 10800000 # 3 hour
