@@ -14,12 +14,14 @@ java {
     }
 }
 
+allprojects {}
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
 
-    group = 'com.tutomat'
+    group = 'com.tutomato'
     version = '0.0.1-SNAPSHOT'
 
     repositories {
@@ -38,3 +40,4 @@ subprojects {
     }
 
 }
+

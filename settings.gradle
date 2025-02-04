@@ -1,4 +1,5 @@
 rootProject.name = 'tutomato-msa'
 
+include 'common'
 include 'api'
 include 'admin'

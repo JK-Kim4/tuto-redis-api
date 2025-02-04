@@ -13,11 +13,21 @@ java {
     }
 }
 
+bootJar {
+    enabled = true
+}
+
+jar {
+    enabled = true
+}
+
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    implementation project(':common')
     implementation 'org.springframework.boot:spring-boot-starter-mustache'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     runtimeOnly 'com.h2database:h2'
@@ -29,3 +39,5 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+tasks.register("prepareKotlinBuildScriptModel"){}
