@@ -1,5 +1,6 @@
 package com.tutomato.api.hello;
 
+import com.tutomato.common.exception.UnsatisfyingParameterException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,6 +10,11 @@ public class HelloController {
     @GetMapping("/hello")
     public String hello(){
         return "Hello World";
+    }
+
+    @GetMapping("/common-exception")
+    public void commonException(){
+        throw new UnsatisfyingParameterException("test", "common controller handle this exception");
     }
 }
 
