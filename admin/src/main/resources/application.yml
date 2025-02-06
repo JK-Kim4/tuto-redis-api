@@ -1,1 +1,12 @@
-spring.application.name=admin
+spring:
+  application:
+    name: admin
+  config:
+    import: optional:configserver:http://localhost:8888
+
+# 클라이언트 코드에서 Actuator 설정
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

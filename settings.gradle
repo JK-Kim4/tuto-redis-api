@@ -1,6 +1,6 @@
 rootProject.name = 'tutomato-msa'
 
-include 'common'
 include 'api'
+include 'common'
 include 'admin'
 include 'cloudconfig'

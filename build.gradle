@@ -51,8 +51,3 @@ subprojects {
 
     tasks.register("prepareKotlinBuildScriptModel"){}
 }
-
-project(':common'){
-    bootJar {enabled = false}
-    jar {enabled = true}
-}

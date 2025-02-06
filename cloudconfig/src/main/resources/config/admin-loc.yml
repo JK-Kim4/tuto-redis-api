@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: admin
+  mustache:
+    servlet:
+      expose-session-attributes: true
+server:
+  port: 18080
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
