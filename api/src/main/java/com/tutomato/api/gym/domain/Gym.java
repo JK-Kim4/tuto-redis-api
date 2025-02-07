@@ -1,6 +1,7 @@
 package com.tutomato.api.gym.domain;
 
 import com.tutomato.api.member.domain.Member;
+import com.tutomato.api.membership.domain.Membership;
 import com.tutomato.common.domain.Address;
 import com.tutomato.common.domain.Brand;
 import jakarta.persistence.*;
@@ -20,6 +21,9 @@ public class Gym extends Brand{
 
     @OneToMany(mappedBy = "gym")
     private List<Member> memberList;
+
+    @OneToMany(mappedBy = "membership")
+    private List<Membership> membershipList;
 
     @Builder
     public Gym(String name, String description, String contact, Address address, GymType gymType) {
