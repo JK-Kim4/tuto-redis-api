@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Entity @Getter
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class Brand {
+public abstract class Brand extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

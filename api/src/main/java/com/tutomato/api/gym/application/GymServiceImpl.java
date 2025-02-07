@@ -1,5 +1,6 @@
 package com.tutomato.api.gym.application;
 
+import com.tutomato.api.gym.api.dto.GymSaveDto;
 import com.tutomato.api.gym.domain.Gym;
 import com.tutomato.api.gym.repository.GymRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,7 @@ public class GymServiceImpl implements GymService {
     private final GymRepository gymRepository;
 
     @Override
-    public Long save(Gym gym) {
+    public Long save(GymSaveDto dto) {
         return 0L;
     }
 
