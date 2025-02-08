@@ -14,15 +14,17 @@ public abstract class Brand extends BaseEntity {
     private Long id;
     private String name;
     private String description;
+    private String identifier;
 
     @Embedded
     private Address address;
 
     private String contact;
 
-    public Brand(String name, String description, Address address, String contact) {
+    public Brand(String name, String description,String identifier, Address address, String contact) {
         this.name = name;
         this.description = description;
+        this.identifier = identifier;
         this.address = address;
         this.contact = contact;
     }

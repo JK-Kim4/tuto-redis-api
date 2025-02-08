@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,14 +21,18 @@ public class Gym extends Brand{
     private GymType gymType;
 
     @OneToMany(mappedBy = "gym")
-    private List<Member> memberList;
+    private List<Member> memberList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "membership")
-    private List<Membership> membershipList;
+    @OneToMany(mappedBy = "gym")
+    private List<Membership> membershipList = new ArrayList<>();
 
     @Builder
-    public Gym(String name, String description, String contact, Address address, GymType gymType) {
-        super(name, description, address, contact);
+    public Gym(String name, String description, String contact, String identifier, Address address, GymType gymType) {
+        super(name, description, identifier, address, contact);
         this.gymType = gymType;
+    }
+
+    public void registerMember(Member member){
+        this.memberList.add(member);
     }
 }

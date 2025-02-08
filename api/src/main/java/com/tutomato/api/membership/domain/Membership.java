@@ -2,6 +2,7 @@ package com.tutomato.api.membership.domain;
 
 import com.tutomato.api.gym.domain.Gym;
 import com.tutomato.api.member.domain.Member;
+import com.tutomato.common.domain.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -11,11 +12,7 @@ import java.time.LocalDate;
 
 @Entity @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Membership {
-
-    @Id @GeneratedValue
-    @Column(name = "membership_id")
-    private Long id;
+public class Membership extends Product {
 
     @ManyToOne
     @JoinColumn(name = "gym_id")

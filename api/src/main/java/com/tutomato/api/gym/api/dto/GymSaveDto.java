@@ -12,6 +12,7 @@ public class GymSaveDto {
     private String name;
     private String description;
     private String contact;
+    private String identifier;
     private String gymType;
     private String zipCode;
     private String city;
@@ -21,10 +22,11 @@ public class GymSaveDto {
     private String state;
 
     @Builder
-    public GymSaveDto(String name, String description, String contact, String gymType, String zipCode, String city, String country, String street, String streetNumber) {
+    public GymSaveDto(String name, String description, String identifier, String contact, String gymType, String zipCode, String city, String country, String street, String streetNumber) {
         this.name = name;
         this.description = description;
         this.contact = contact;
+        this.identifier = identifier;
         this.gymType = gymType;
         this.zipCode = zipCode;
         this.city = city;
@@ -34,27 +36,12 @@ public class GymSaveDto {
 
     }
 
-
-    public static GymSaveDto from(Gym gym) {
-        GymSaveDto dto = new GymSaveDto();
-            dto.setName(gym.getName());
-            dto.setDescription(gym.getDescription());
-            dto.setContact(gym.getContact());
-            dto.setGymType(gym.getGymType().name());
-            dto.setZipCode(gym.getAddress().getZipCode());
-            dto.setCity(gym.getAddress().getCity());
-            dto.setCountry(gym.getAddress().getCountry());
-            dto.setStreet(gym.getAddress().getStreet());
-            dto.setStreetNumber(gym.getAddress().getStreetNumber());
-            dto.setState(gym.getAddress().getState());
-        return dto;
-    }
-
     public Gym toGym() {
         return Gym.builder()
                 .name(this.getName())
                 .description(this.getDescription())
                 .contact(this.getContact())
+                .identifier(this.getIdentifier())
                 .address(Address.builder()
                             .zipCode(this.getZipCode())
                             .city(this.getCity())
