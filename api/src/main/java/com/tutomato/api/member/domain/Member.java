@@ -7,11 +7,11 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.internal.util.stereotypes.Lazy;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.List;
 
-@Entity
+@Entity @BatchSize(size = 100)
 @Getter @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 

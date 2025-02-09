@@ -1,0 +1,8 @@
+naver:
+  payment:
+    api:
+      dev-domain: https://dev-pub.apis.naver.com
+      prod-domain: https://apis.naver.com
+    front:
+      dev-domain: https://test-m.pay.naver.com
+      prod-domain: https://m.pay.naver.com
