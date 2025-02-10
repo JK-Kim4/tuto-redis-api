@@ -1,7 +1,8 @@
 rootProject.name = 'tutomato-msa'
 
-include 'api'
+include 'gym'
 include 'common'
 include 'admin'
 include 'cloudconfig'
 include 'payment'
+include 'apigateway'
